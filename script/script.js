@@ -1,9 +1,9 @@
 let header = document.querySelector('h1');
 let browserName = document.querySelectorAll('.browser-name');
 let manifesto = document.getElementById('manifesto-url');
+let body = document.querySelector('body');
+let html = document.querySelector('html');
 // header.textContent = 'Hello World!';
-
-console.log(browserName);
 
 init();
 
@@ -11,13 +11,16 @@ document.addEventListener('DOMContentLoaded', function () {
     document.querySelector('img').addEventListener('click', function () {
         let src = this.getAttribute('src');
         let headerText;
+        let isMozilla;
 
         if (src == 'images/firefox-icon.png') {
             this.setAttribute('src', 'images/chrome-icon.png');
             headerText = "Chrome is cool";
+            isMozilla = false;
         } else {
             this.setAttribute('src', 'images/firefox-icon.png');
             headerText = "Mozilla is cool";
+            isMozilla = true;
         }
 
         let name = localStorage.getItem('name');
@@ -27,7 +30,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         header.innerHTML = headerText;
-        changeBrowserName();
+        changeBrowser(isMozilla);
     });
 
     document.querySelector('#change-user').addEventListener('click', function () {
@@ -62,8 +65,15 @@ function init() {
     header.innerHTML = headerText;
 }
 
-function changeBrowserName(isMozilla) {
+function changeBrowser(isMozilla) {
     browserName.forEach(element => {
         element.textContent = isMozilla ? 'Mozilla' : 'Chrome';
     });
+
+    manifesto.textContent = isMozilla ? 'Mozilla Manifesto' : 'Chrome Manifesto';
+    manifesto.setAttribute('href', isMozilla ? 'https://www.mozilla.org/en-US/about/manifesto' : 'https://support.google.com/chrome');
+
+    html.style.backgroundColor = isMozilla ? '#00539F' : '#34a853';
+    body.style.borderColor = isMozilla ? 'black' : '#ea4335';
+    header.style.color = isMozilla ? '#00539F' : '#4285f4';
 }
