@@ -42,7 +42,6 @@ function setUserName() {
     let name = prompt('Please enter your name');
 
     if (!name) {
-        setUserName();
         return;
     }
 
